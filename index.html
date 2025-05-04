@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shark Matcher</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div class="preloader">
+      <div class="preloader-icon"></div>
+    </div>
+
+    <header>
+      <h1>Shark Matcher</h1>
+      <nav>
+        <ul>
+          <li><a href="#game">Game</a></li>
+          <li><a href="#about">Shark Info</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="game">
+        <h2>Shark Matcher Challenge</h2>
+
+        <div class="level" id="level1">
+          <h3>Level 1: Match Shark Types</h3>
+          <p>
+            Drag and drop sharks into their correct category: Filter Feeder or
+            Non-Filter Feeder
+          </p>
+
+          <div class="game-container">
+            <div class="sharks-container" id="sharksContainer">
+              <!-- Shark cards will be generated here by JS -->
+            </div>
+
+            <div class="categories-container">
+              <div class="category" id="filterFeeder">
+                <h3>Filter Feeders</h3>
+                <div class="drop-zone" id="filterFeederZone"></div>
+              </div>
+
+              <div class="category" id="nonFilterFeeder">
+                <h3>Non-Filter Feeders</h3>
+                <div class="drop-zone" id="nonFilterFeederZone"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-controls">
+            <button id="resetGame">Reset Level</button>
+            <button id="checkAnswers">Check Answers</button>
+          </div>
+
+          <div id="gameResult" class="hidden">
+            <p>
+              Your score: <span id="score">0</span> out of
+              <span id="total">0</span>
+            </p>
+          </div>
+
+          <div class="level-complete hidden" id="level1Complete">
+            <p>Great job! You've completed Level 1!</p>
+            <button id="nextLevelBtn" class="next-level-btn">
+              Go to Level 2
+            </button>
+          </div>
+        </div>
+
+        <div class="level" id="level2">
+          <h3>Level 2: Match Shark Food</h3>
+          <p>
+            Drag and drop food items into the category of sharks that eat them
+          </p>
+
+          <div class="game-container">
+            <div class="sharks-container" id="foodContainer">
+              <!-- Food cards will be generated here by JS -->
+            </div>
+
+            <div class="categories-container">
+              <div class="category" id="sharkFood">
+                <h3>Non-Filter Feeder Diet</h3>
+                <div class="drop-zone" id="sharkFoodZone"></div>
+              </div>
+
+              <div class="category" id="planktonFood">
+                <h3>Filter Feeder Diet</h3>
+                <div class="drop-zone" id="planktonFoodZone"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-controls">
+            <button id="resetLevel2">Reset Level</button>
+            <button id="checkLevel2">Check Answers</button>
+          </div>
+
+          <div id="level2Result" class="hidden">
+            <p>
+              Your score: <span id="scoreLevel2">0</span> out of
+              <span id="totalLevel2">0</span>
+            </p>
+          </div>
+
+          <div class="level-complete hidden" id="gameComplete">
+            <p>
+              Congratulations! You've completed the Shark Matcher Challenge!
+            </p>
+            <p>
+              You now know how to identify different types of sharks and what
+              they eat.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <h2>About Shark Feeding Types</h2>
+        <div class="info-box">
+          <h3>Filter Feeders</h3>
+          <p>
+            Filter feeding sharks swim with their mouths open, using specialized
+            gill rakers to strain tiny organisms from the water.
+          </p>
+          <p>
+            <strong>Examples:</strong> Whale Shark, Basking Shark, Megamouth
+            Shark
+          </p>
+          <p><strong>Diet:</strong> Plankton, krill, small fish, algae</p>
+        </div>
+
+        <div class="info-box">
+          <h3>Non-Filter Feeders</h3>
+          <p>
+            Most sharks are active predators with powerful jaws and teeth
+            designed for capturing and consuming larger prey.
+          </p>
+          <p>
+            <strong>Examples:</strong> Great White Shark, Hammerhead Shark,
+            Thresher Shark
+          </p>
+          <p><strong>Diet:</strong> Fish, seals, squid, other sharks</p>
+        </div>
+
+        <div class="info-box">
+          <h3>Key Differences</h3>
+          <p>
+            <strong>Filter Feeders:</strong> Eat tiny organisms, have modified
+            gill rakers, generally harmless to humans
+          </p>
+          <p>
+            <strong>Non-Filter Feeders:</strong> Hunt larger prey, have rows of
+            sharp teeth, use various hunting strategies
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 Shark Matcher. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Hide preloader when everything is loaded
+      window.addEventListener("load", function () {
+        const preloader = document.querySelector(".preloader");
+        setTimeout(function () {
+          preloader.classList.add("hidden");
+        }, 500);
+      });
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

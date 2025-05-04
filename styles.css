@@ -1,0 +1,874 @@
+/* Modern, Clean, Abstract Design */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Color Palette - Dark Abstract */
+  --dark-bg: #0f0f13;
+  --dark-surface: #17171d;
+  --dark-element: #1e1e29;
+  --blue-primary: #3a86ff;
+  --blue-glow: rgba(58, 134, 255, 0.15);
+  --blue-bright: #00c2ff;
+  --accent: #ff006e;
+  --success: #02c39a;
+  --warning: #ffbe0b;
+  --error: #ff5b5b;
+  --text-primary: #f8f9fa;
+  --text-secondary: #adb5bd;
+  --text-muted: #6c757d;
+  --border: rgba(255, 255, 255, 0.05);
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --card-glow: 0 0 10px var(--blue-glow);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: var(--dark-bg);
+  color: var(--text-primary);
+  font-family: "Poppins", sans-serif;
+  /* Replace complex gradient with a simpler background */
+  background-image: none;
+  will-change: scroll-position; /* Optimize for scrolling */
+}
+
+body {
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Layout */
+header {
+  width: 100%;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(15, 15, 19, 0.95);
+  border-bottom: 1px solid var(--border);
+  /* Replace backdrop-filter which is expensive */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  contain: content; /* Improve rendering performance */
+}
+
+footer {
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background-color: rgba(15, 15, 19, 0.95);
+  border-top: 1px solid var(--border);
+  /* Remove backdrop-filter */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+section {
+  padding: 20px;
+  position: relative;
+  contain: content; /* Improve rendering performance */
+}
+
+/* Modern Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 1.5rem;
+  color: var(--blue-primary);
+  position: relative;
+  /* Replace expensive background-clip with solid color */
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+}
+
+header h1::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 50%;
+  height: 3px;
+  background: var(--blue-primary);
+  bottom: -5px;
+  left: 0;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 400;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--blue-bright);
+  transition: width 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--text-primary);
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Main content styling */
+h2 {
+  margin-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 1.8rem;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+  color: var(--blue-primary);
+  /* Replace expensive background-clip with solid color */
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--blue-primary);
+}
+
+h3 {
+  font-weight: 400;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+#game,
+#about {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Game Container Styles */
+.game-container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.sharks-container,
+#foodContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  min-height: 110px;
+  padding: 15px;
+  background-color: var(--dark-surface);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.3s ease; /* Optimize transition */
+}
+
+.categories-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.category {
+  flex: 1;
+  min-width: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--dark-surface);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s ease; /* Optimize transition */
+}
+
+.category:hover {
+  box-shadow: var(--card-glow);
+}
+
+.category h3 {
+  padding: 15px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background-color: var(--dark-element);
+  border-bottom: 1px solid var(--border);
+}
+
+#filterFeeder h3,
+#planktonFood h3 {
+  background-color: var(--dark-element);
+  color: var(--blue-bright);
+  /* Replace gradient with solid color */
+}
+
+#nonFilterFeeder h3,
+#sharkFood h3 {
+  background-color: var(--dark-element);
+  color: var(--accent);
+  /* Replace gradient with solid color */
+}
+
+.drop-zone {
+  min-height: 150px;
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  transition: background-color 0.3s ease; /* Optimize transition */
+}
+
+.drop-zone.drag-over {
+  background-color: rgba(58, 134, 255, 0.05);
+  box-shadow: inset 0 0 10px var(--blue-glow);
+}
+
+/* Card designs */
+.shark-card,
+.food-card {
+  width: 130px;
+  height: 150px;
+  background-color: var(--dark-element);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  cursor: move;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  border: 1px solid var(--border);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Remove the reflective window effect */
+.shark-card::before,
+.food-card::before {
+  display: none;
+}
+
+.shark-card:hover,
+.food-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 10px var(--blue-glow);
+  border-color: rgba(58, 134, 255, 0.3);
+}
+
+/* Remove the sweep animation trigger */
+.shark-card:hover::before,
+.food-card:hover::before {
+  display: none;
+}
+
+.shark-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  pointer-events: none;
+  user-select: none;
+  transition: none; /* Remove unnecessary transition */
+  filter: none; /* Remove expensive filter effects */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.shark-card p,
+.food-card p {
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--text-primary);
+  margin-top: 8px;
+}
+
+/* Additional pointer-events styles to improve dragging */
+.shark-card *,
+.food-card * {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Level styles */
+.level {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.level p {
+  text-align: center;
+  margin-bottom: 15px;
+  max-width: 600px;
+  color: var(--text-secondary);
+}
+
+#level2 {
+  display: none;
+  padding-top: 30px;
+  margin-top: 30px;
+  position: relative;
+}
+
+#level2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background-color: var(--blue-primary);
+  /* Replace gradient with solid color */
+}
+
+#level2.active {
+  display: flex;
+  animation: none; /* Remove animation to improve performance */
+}
+
+#level2.active {
+  animation: fadeIn 0.5s; /* Optimize animation duration */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Level completion */
+.level-complete {
+  background-color: rgba(2, 195, 154, 0.05);
+  color: var(--success);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px 0;
+  border: 1px solid rgba(2, 195, 154, 0.1);
+  box-shadow: 0 0 10px rgba(2, 195, 154, 0.1); /* Reduce shadow complexity */
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Game Controls */
+.game-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Button styles */
+button {
+  background-color: var(--dark-element);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Optimize transition */
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+button::after {
+  display: none; /* Remove pseudo-element for better performance */
+}
+
+button:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 5px var(--blue-glow);
+  transform: translateY(-2px);
+}
+
+button:hover::after {
+  display: none; /* Remove effects */
+}
+
+#resetGame,
+#resetLevel2 {
+  background-color: var(--dark-element);
+  color: var(--text-secondary);
+}
+
+#checkAnswers,
+#checkLevel2 {
+  background-color: var(--dark-element);
+  color: var(--success);
+  border-color: rgba(2, 195, 154, 0.2);
+}
+
+.next-level-btn {
+  background-color: var(--dark-element);
+  color: var(--warning);
+  border-color: rgba(255, 190, 11, 0.2);
+  display: none;
+  margin-top: 15px;
+}
+
+.next-level-btn.active {
+  display: inline-block;
+  animation: none;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 190, 11, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 190, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 190, 11, 0);
+  }
+}
+
+#gameResult,
+#level2Result {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1rem;
+  max-width: 600px;
+  width: 100%;
+  background-color: var(--dark-element);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+#gameResult.correct,
+#level2Result.correct {
+  background-color: rgba(2, 195, 154, 0.05);
+  color: var(--success);
+  border: 1px solid rgba(2, 195, 154, 0.1);
+  box-shadow: 0 0 10px rgba(2, 195, 154, 0.1);
+}
+
+#gameResult.incorrect,
+#level2Result.incorrect {
+  background-color: rgba(255, 91, 91, 0.05);
+  color: var(--error);
+  border: 1px solid rgba(255, 91, 91, 0.1);
+  box-shadow: 0 0 10px rgba(255, 91, 91, 0.1);
+}
+
+.info-box {
+  background-color: var(--dark-surface);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.3s ease;
+  max-width: 800px;
+  width: 100%;
+  contain: content;
+}
+
+.info-box:hover {
+  box-shadow: var(--card-glow);
+}
+
+.info-box h3 {
+  color: var(--blue-primary);
+  margin-bottom: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 1.2rem;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.info-box h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: var(--blue-primary);
+}
+
+.info-box p {
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.correct-match {
+  border: 1px solid var(--success) !important;
+  box-shadow: 0 0 10px rgba(2, 195, 154, 0.3) !important;
+}
+
+.incorrect-match {
+  border: 1px solid var(--error) !important;
+  box-shadow: 0 0 10px rgba(255, 91, 91, 0.3) !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.food-card {
+  position: relative;
+}
+
+.food-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  pointer-events: none;
+  user-select: none;
+  transition: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 8px;
+}
+
+.food-name {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text-primary);
+  margin-top: 5px;
+}
+
+.food-icon {
+  width: 55px;
+  height: 55px;
+  background-color: var(--dark-surface);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(58, 134, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  color: var(--blue-primary);
+}
+
+.food-icon::after {
+  display: none;
+}
+
+#sharkFood .food-icon {
+  color: var(--accent);
+  border-color: rgba(255, 0, 110, 0.1);
+}
+
+#sharkFood .food-icon::after {
+  display: none;
+}
+
+#planktonFood .food-icon {
+  color: var(--blue-bright);
+  border-color: rgba(0, 194, 255, 0.1);
+}
+
+.food-description {
+  font-size: 10px;
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  display: block;
+  height: 25px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+
+  header h1::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  nav ul {
+    justify-content: center;
+    margin-top: 15px;
+    gap: 15px;
+  }
+
+  .categories-container {
+    flex-direction: column;
+  }
+
+  .category {
+    width: 100%;
+  }
+
+  .level p,
+  .info-box p {
+    font-size: 0.9rem;
+  }
+}
+
+.glass-effect {
+  background-color: rgba(30, 30, 41, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dark-element);
+  border-radius: 4px;
+}
+
+.mobile-tip {
+  background-color: rgba(58, 134, 255, 0.1);
+  border: 1px solid var(--blue-primary);
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.mobile-tip p {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.touch-dragging {
+  display: none;
+}
+
+.image-fallback {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background-color: var(--dark-surface);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--blue-primary);
+  margin-bottom: 8px;
+  user-select: none;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px dashed var(--border);
+}
+
+.shark-card .image-fallback {
+  width: 80px;
+  height: 80px;
+}
+
+.food-card .image-fallback {
+  width: 100px;
+  height: 100px;
+}
+
+.encourage-msg,
+.encourage-msg-level2 {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.shark-card img,
+.food-image {
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .shark-card,
+  .food-card {
+    width: 120px;
+    height: 140px;
+  }
+
+  .shark-card img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .food-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .category {
+    min-width: 150px;
+  }
+
+  .drop-zone {
+    min-height: 120px;
+  }
+
+  .level-complete p {
+    font-size: 0.9rem;
+  }
+}
+
+.preloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark-bg);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.preloader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-icon {
+  width: 50px;
+  height: 50px;
+  border: 4px solid transparent;
+  border-top-color: var(--blue-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile tap selection styling */
+.selected-card {
+  transform: scale(1.05);
+  border: 2px solid var(--blue-primary) !important;
+  box-shadow: 0 0 15px var(--blue-glow) !important;
+  position: relative;
+  z-index: 5;
+}
+
+/* Add a subtle pulse animation for selected cards on mobile */
+@keyframes pulse-highlight {
+  0% {
+    box-shadow: 0 0 5px var(--blue-glow);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--blue-glow);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--blue-glow);
+  }
+}
+
+.selected-card {
+  animation: pulse-highlight 1.5s infinite;
+}
+
+/* Make drop zones more obvious on mobile when a card is selected */
+.drop-zone:hover {
+  background-color: rgba(58, 134, 255, 0.05);
+  transition: background-color 0.3s ease;
+}
