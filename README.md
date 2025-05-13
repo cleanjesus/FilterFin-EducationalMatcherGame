@@ -1,6 +1,6 @@
-🦈 Shark Matcher
+🦈 FilterFin - Shark Matcher Game
 
-Shark Matcher is a quick, drag-and-drop browser game that helps students learn about filter feeding sharks in a fun and interactive way.
+FilterFin is a quick, drag-and-drop browser game and a click-and-drop mobile game, that helps students learn about filter feeding sharks in a fun and interactive way.
 
 🎮 How to Play
 Level 1: Sort sharks into Filter Feeders and Non-Filter Feeders.
